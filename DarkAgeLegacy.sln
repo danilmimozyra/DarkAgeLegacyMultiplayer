@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkAgeLegacy", "DarkAgeLegacy\DarkAgeLegacy.csproj", "{47892C27-7189-4540-81D8-E9C855A2DAA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkAgeLegacyServer", "DarkAgeLegacy\DarkAgeLegacyServer.csproj", "{47892C27-7189-4540-81D8-E9C855A2DAA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkAgeLegacyClient", "DarkAgeLegacyClient\DarkAgeLegacyClient.csproj", "{21608C70-1A03-4FA7-853C-F11AADC59DB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{47892C27-7189-4540-81D8-E9C855A2DAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47892C27-7189-4540-81D8-E9C855A2DAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47892C27-7189-4540-81D8-E9C855A2DAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21608C70-1A03-4FA7-853C-F11AADC59DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21608C70-1A03-4FA7-853C-F11AADC59DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21608C70-1A03-4FA7-853C-F11AADC59DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21608C70-1A03-4FA7-853C-F11AADC59DB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

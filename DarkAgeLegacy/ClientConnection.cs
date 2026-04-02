@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 
-public class GameClient
+public class ClientConnection
 {
     private TcpClient client;
     private StreamReader reader;
@@ -9,7 +9,7 @@ public class GameClient
 
     public string Id { get; }
 
-    public GameClient(TcpClient client)
+    public ClientConnection(TcpClient client)
     {
         this.client = client;
 

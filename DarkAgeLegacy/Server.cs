@@ -5,12 +5,14 @@ public class Server
 {
     private TcpListener listener;
     private bool running = false;
+    private Logger logger;
 
     //sem bych pridal dictionary vsech prikazu
 
     public Server(int port)
     {
         listener = new TcpListener(IPAddress.Any, port);
+        logger = Logger.Instance;
     }
 
     public void Start()
@@ -24,9 +26,9 @@ public class Server
         {
             TcpClient tcpClient = listener.AcceptTcpClient();
 
-            GameClient client = new GameClient(tcpClient);
+            ClientConnection client = new ClientConnection(tcpClient);
 
-            Console.WriteLine($"Client connected: {client.Id}");
+            logger.Info($"Client connected: {client.Id}");
 
             Thread thread = new Thread(ClientLoop);
             thread.Start(client);
@@ -36,7 +38,7 @@ public class Server
     //klasicky klient loop pro kazdeho klenta
     private void ClientLoop(object obj)
     {
-        GameClient client = (GameClient)obj;
+        ClientConnection client = (ClientConnection)obj;
 
         client.Send("Welcome to server");
 
@@ -50,8 +52,6 @@ public class Server
                 if (message == "exit")
                     break;
 
-                Console.WriteLine($"[{client.Id}] {message}");
-
                 string response = HandleMessage(client, message);
 
                 client.Send(response);
@@ -59,16 +59,18 @@ public class Server
         }
         catch
         {
-            Console.WriteLine($"Client error: {client.Id}");
+            logger.Error($"Client error: {client.Id}");
         }
 
         client.Close();
-        Console.WriteLine($"Client disconnected: {client.Id}");
+        logger.Info($"Client disconnected: {client.Id}");
     }
 
     //sem pak prijdou komandy
-    protected virtual string HandleMessage(GameClient client, string message)
+    private string HandleMessage(ClientConnection client, string message)
     {
+        logger.Client($"[{client.Id}] {message}");
+
         return $"Echo: {message}";
     }
 }
