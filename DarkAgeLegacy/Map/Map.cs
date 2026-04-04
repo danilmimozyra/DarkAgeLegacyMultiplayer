@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DarkAgeLegacyServer.Map
+namespace DarkAgeLegacyServer
 {
-    internal class Map
+    public class Map
     {
-        private Dictionary<int, Room> map;
+        public Dictionary<int, Room> map;
         private Random rd;
 
         public Map()

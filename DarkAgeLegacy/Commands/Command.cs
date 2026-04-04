@@ -1,7 +1,17 @@
 ﻿using System;
 
-public abstract class Command
+namespace DarkAgeLegacyServer
 {
-    public abstract String execute();
-    public abstract bool exit();
+    internal abstract class Command
+    {
+        protected Map map;
+
+        public Command(Map map)
+        {
+            this.map = map;
+        }
+
+        public abstract String execute(Player player, string value);
+        public abstract bool exit();
+    }
 }

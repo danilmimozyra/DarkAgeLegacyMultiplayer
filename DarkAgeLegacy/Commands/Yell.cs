@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DarkAgeLegacyServer.Commands
+namespace DarkAgeLegacyServer
 {
     internal class Yell : Command
     {
-        public override string execute()
+        public Yell(Map map) : base(map)
+        {
+        }
+
+        public override string execute(Player player, string value)
         {
             throw new NotImplementedException();
         }

@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DarkAgeLegacyServer.Commands
+namespace DarkAgeLegacyServer
 {
     internal class Attack : Command
     {
-        public override string execute()
+        public Attack(Map map) : base(map)
+        {
+        }
+
+        public override string execute(Player player, string value)
         {
             throw new NotImplementedException();
         }
