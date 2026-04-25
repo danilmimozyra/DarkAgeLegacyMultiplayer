@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DarkAgeLegacyServer
 {
-    internal class Inventory : Command
+    internal class InventoryComm : Command
     {
-        public Inventory(Map map) : base(map)
+        public InventoryComm(Map map) : base(map)
         {
         }
 
