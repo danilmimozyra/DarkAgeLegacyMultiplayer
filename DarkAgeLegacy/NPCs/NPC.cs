@@ -14,7 +14,7 @@ namespace DarkAgeLegacyServer
         protected List<Dictionary<int, Item>> drops;
 
         protected string Name { get => name; }
-        protected int Health { get => health; set => { health = value; } }
+        public int Health { get => health; set => health = value; }
 
         public NPC(string name, int health)
         {

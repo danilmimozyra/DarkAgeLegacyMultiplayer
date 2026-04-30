@@ -16,7 +16,7 @@ namespace DarkAgeLegacyServer
         protected int additionalDefence;
 
         protected int Damage { get => damage; }
-        protected string[] AttackCycle { get => attackCycle; set => attackCycle = value; }
+        public string[] AttackCycle { get => attackCycle; set => attackCycle = value; }
 
         public Enemy(string name, int health, int damage, int defence) : base(name, health)
         {

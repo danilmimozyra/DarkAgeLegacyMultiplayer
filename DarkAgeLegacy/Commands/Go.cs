@@ -19,16 +19,16 @@ namespace DarkAgeLegacyServer
             switch (value)
             {
                 case "west":
-                    id = map.map[player.CurrentRoom].WestRoom;
+                    id = map.MapProp[player.CurrentRoom].WestRoom;
                     break;
                 case "north":
-                    id = map.map[player.CurrentRoom].NorthRoom;
+                    id = map.MapProp[player.CurrentRoom].NorthRoom;
                     break;
                 case "east":
-                    id = map.map[player.CurrentRoom].EastRoom;
+                    id = map.MapProp[player.CurrentRoom].EastRoom;
                     break;
                 case "south":
-                    id = map.map[player.CurrentRoom].SouthRoom;
+                    id = map.MapProp[player.CurrentRoom].SouthRoom;
                     break;
                 default:
                     return "You seem confused.";
@@ -36,7 +36,7 @@ namespace DarkAgeLegacyServer
             if (id == 0) return "This room doesn't have an entrance there!";
             
             player.CurrentRoom = id;
-            return map.map[id].RoomDescription();
+            return map.MapProp[id].RoomDescription();
             
             
         }

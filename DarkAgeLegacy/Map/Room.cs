@@ -8,19 +8,24 @@ namespace DarkAgeLegacyServer
 {
     public class Room
     {
-        private String name;
+        private string name;
         private int westRoom;
         private int northRoom;
         private int eastRoom;
         private int southRoom;
+        private Enemy attackedEnemy;
+        private List<NPC> npcs;
+        private List<Item> items;
 
-        public Room(String name, int westRoom, int northRoom, int eastRoom, int southRoom)
+        public Room(string name, int westRoom, int northRoom, int eastRoom, int southRoom)
         {
             this.name = name;
             this.westRoom = westRoom;
             this.northRoom = northRoom;
             this.eastRoom = eastRoom;
             this.southRoom = southRoom;
+            npcs = new List<NPC>();
+            items = new List<Item>();
         }
 
         public int WestRoom { get => westRoom; }
@@ -29,10 +34,15 @@ namespace DarkAgeLegacyServer
         public int SouthRoom { get => southRoom; }
         public string Name { get => name; }
 
-        public String RoomDescription()
+        public string RoomDescription()
         {
             // placeholder return
             return "You entered " + name;
+        }
+
+        public void AddNPC(NPC n)
+        {
+            npcs.Add(n);
         }
     }
 }

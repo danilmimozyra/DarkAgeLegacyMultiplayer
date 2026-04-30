@@ -8,14 +8,19 @@ namespace DarkAgeLegacyServer
 {
     public class Map
     {
-        public Dictionary<int, Room> map;
+        private Dictionary<int, Room> map;
+        private Room currentRoom;
         private Random rd;
+        public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
+        public Dictionary<int, Room> MapProp { get => map; set => map = value; }
 
         public Map()
         {
             map = new Dictionary<int, Room>();
             rd = new Random();
             LoadMap();
+            LoadNPCs();
+            currentRoom = map[1];
         }
 
         private void LoadMap()
@@ -39,5 +44,46 @@ namespace DarkAgeLegacyServer
                 }
             }
         }
+
+        private void LoadNPCs()
+        {
+            string filePath = "res/npcs.txt";
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] npcInfo = line.Split(",");
+                    NPC npc = CreateNPC(npcInfo);
+                    if (npc is Enemy || npc is Boss) 
+                    {
+                        line = reader.ReadLine();
+                        string[] cycle = line.Split(",");
+                        ((Enemy) npc).AttackCycle = cycle;
+                    }
+                    map[int.Parse(npcInfo[0])].AddNPC(npc);
+                }
+            } 
+        }
+
+        private NPC CreateNPC(string[] npcInfo)
+        {
+            NPC? n = npcInfo[1] switch
+            {
+                "0" => new NPC(npcInfo[2], int.Parse(npcInfo[3])),
+
+                "1" => new Enemy(npcInfo[2], int.Parse(npcInfo[3]),
+                                 int.Parse(npcInfo[4]), int.Parse(npcInfo[5])),
+
+                "2" => new Boss(npcInfo[2], int.Parse(npcInfo[3]),
+                                int.Parse(npcInfo[4]), int.Parse(npcInfo[5]), int.Parse(npcInfo[6])),
+                _ => null
+            };
+
+            return n;
+        }
+
     }
+    
 }
