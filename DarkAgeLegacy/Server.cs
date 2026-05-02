@@ -105,5 +105,6 @@ public class Server
 
         commands = new Dictionary<string, Command>();
         commands.Add("go", new Go(map));
+        commands.Add("help", new Help(map));
     }
 }
