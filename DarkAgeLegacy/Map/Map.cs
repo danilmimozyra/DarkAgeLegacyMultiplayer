@@ -20,6 +20,7 @@ namespace DarkAgeLegacyServer
             rd = new Random();
             LoadMap();
             LoadNPCs();
+            LoadDrops();
             currentRoom = map[1];
         }
 
@@ -84,6 +85,41 @@ namespace DarkAgeLegacyServer
             return n;
         }
 
+        private void LoadDrops()
+        {
+            string filePath = "res/drops.txt";
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] dropsInfo = line.Split(",");
+                    map[int.Parse(dropsInfo[0])].FindNPC(dropsInfo[1]).AddDrop(
+                            int.Parse(dropsInfo[2]),
+                            AddDropToNPC(dropsInfo)
+                    );
+                }
+            } 
+            map[rd.Next(map.Count) + 1].AddItem(
+                    new OffHand("Torch", 0, 20, 0)
+            );
+        }
+
+        private Item? AddDropToNPC(string[] dropsInfo)
+        {
+            return dropsInfo[3] switch
+            {
+                "0" => new Item(dropsInfo[4], int.Parse(dropsInfo[5]), dropsInfo[6]),
+
+                "1" => new OffHand(dropsInfo[4], int.Parse(dropsInfo[5]),
+                                   int.Parse(dropsInfo[6]), int.Parse(dropsInfo[7])),
+
+                "2" => new Weapon(dropsInfo[4], int.Parse(dropsInfo[5])),
+
+                _ => null
+            };
+        }
     }
     
 }

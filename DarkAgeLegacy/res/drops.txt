@@ -1,0 +1,16 @@
+﻿2,Rat,0,0,Flesh,1,n
+2,Guard,2,1,Shield,7,0,0
+2,Guard,0,0,Flesh,1,n
+3,Archer,2,2,Crossbow,11
+3,Armored-Soldier,0,2,Broadsword,10
+3,Old-Armour,0,0,Moss,1,n
+4,Mage,3,2,Fire-Staff,12
+6,Mutated-Guard,1,1,Shield,7,0,0
+6,Mutated-Guard,0,0,Moss,1,n
+6,Alchemist,0,0,Healing-potion,1,h
+6,Alchemist,1,0,Healing-potion,1,h
+7,Warden,0,0,Throne-Room-Key,0,k
+7,Warden,0,2,Fire-Staff,12
+7,Warden,2,0,Scrolls-of-Teleportation,0,s
+8,Skeleton-Archer,1,2,Crossbow,11
+9,Angel,0,1,Book-of-Spells,0,0,6

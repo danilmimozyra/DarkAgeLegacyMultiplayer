@@ -28,7 +28,7 @@ namespace DarkAgeLegacyServer
                 puzzle         - activating the puzzle if the room has one.
                 inventory      - displaying what you currently have in your bag.
                 block          – protecting yourself from suffering bigger damage.
-                exit          – ending the game.
+                exit           – ending the game.
                 
                 """;
         }
