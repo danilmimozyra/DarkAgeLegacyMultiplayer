@@ -9,10 +9,10 @@
         public override string Execute(Player player, string value)
         {
             Item? item = player.RemoveItem(value);
-            map.CurrentRoom.AddItem(item);
+            map.MapProp[player.CurrentRoom].AddItem(item);
             if (item != null) {
                 return "You have left " + item.Name + "." +
-                       AttackPlayer(player, map.CurrentRoom.AttackedEnemy);
+                       AttackPlayer(player, map.MapProp[player.CurrentRoom].AttackedEnemy);
             }
             return "You don't have this item.";
         }

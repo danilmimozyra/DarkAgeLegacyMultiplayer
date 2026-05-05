@@ -9,9 +9,7 @@ namespace DarkAgeLegacyServer
     public class Map
     {
         private Dictionary<int, Room> map;
-        private Room currentRoom;
         private Random rd;
-        public Room CurrentRoom { get => currentRoom; set => currentRoom = value; }
         public Dictionary<int, Room> MapProp { get => map; set => map = value; }
 
         public Map()
@@ -21,7 +19,6 @@ namespace DarkAgeLegacyServer
             LoadMap();
             LoadNPCs();
             LoadDrops();
-            currentRoom = map[1];
         }
 
         private void LoadMap()

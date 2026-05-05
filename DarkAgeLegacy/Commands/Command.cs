@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DarkAgeLegacyServer
+﻿namespace DarkAgeLegacyServer
 {
     internal abstract class Command
     {
@@ -17,7 +15,7 @@ namespace DarkAgeLegacyServer
         public virtual string? AttackPlayer(Player player, NPC? npc) {
             if (npc != null) {
                 if (npc is Enemy or Boss) {
-                    map.CurrentRoom.AttackedEnemy = (Enemy) npc;
+                    map.MapProp[player.CurrentRoom].AttackedEnemy = (Enemy) npc;
                     return "=================================================================================================" +
                            "=====================================================================\n" +
                            ((Enemy) npc).Attack(player);
