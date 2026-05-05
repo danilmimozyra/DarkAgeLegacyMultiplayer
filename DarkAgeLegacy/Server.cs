@@ -93,9 +93,9 @@ public class Server
 
         if (splitMessage.Length > 1)
         {
-            return commands[command].execute(player, splitMessage[1]);
+            return commands[command].Execute(player, splitMessage[1]);
         }
-        return commands[command].execute(player, "");
+        return commands[command].Execute(player, "");
     }
 
     private void InitializeGame()
@@ -106,5 +106,7 @@ public class Server
         commands = new Dictionary<string, Command>();
         commands.Add("go", new Go(map));
         commands.Add("help", new Help(map));
+        commands.Add("inv", new InventoryComm(map));
+        commands.Add("take", new Take(map));
     }
 }

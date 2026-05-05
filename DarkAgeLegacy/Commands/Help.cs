@@ -12,7 +12,7 @@ namespace DarkAgeLegacyServer
         {
         }
 
-        public override string execute(Player player, string value)
+        public override string Execute(Player player, string value)
         {
             return """
                 
@@ -33,7 +33,7 @@ namespace DarkAgeLegacyServer
                 """;
         }
 
-        public override bool exit()
+        public override bool Exit()
         {
             return false;
         }

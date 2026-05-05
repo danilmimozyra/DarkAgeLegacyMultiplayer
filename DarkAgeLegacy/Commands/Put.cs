@@ -12,12 +12,12 @@ namespace DarkAgeLegacyServer
         {
         }
 
-        public override string execute(Player player, string value)
+        public override string Execute(Player player, string value)
         {
             throw new NotImplementedException();
         }
 
-        public override bool exit()
+        public override bool Exit()
         {
             return false;
         }

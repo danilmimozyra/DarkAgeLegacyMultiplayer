@@ -17,6 +17,12 @@ namespace DarkAgeLegacyServer
         private List<NPC> npcs;
         private List<Item> items;
 
+        public Enemy AttackedEnemy
+        {
+            get => attackedEnemy;
+            set => attackedEnemy = value;
+        }
+
         public Room(string name, int westRoom, int northRoom, int eastRoom, int southRoom)
         {
             this.name = name;

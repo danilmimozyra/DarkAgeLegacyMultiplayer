@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DarkAgeLegacyServer
+﻿namespace DarkAgeLegacyServer
 {
     internal class InventoryComm : Command
     {
@@ -12,12 +6,12 @@ namespace DarkAgeLegacyServer
         {
         }
 
-        public override string execute(Player player, string value)
+        public override string Execute(Player player, string value)
         {
-            throw new NotImplementedException();
+            return player.InventoryDescription();
         }
 
-        public override bool exit()
+        public override bool Exit()
         {
             return false;
         }
