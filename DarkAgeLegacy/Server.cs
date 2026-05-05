@@ -110,5 +110,6 @@ public class Server
         commands.Add("take", new Take(map));
         commands.Add("put", new Put(map));
         commands.Add("tip",  new Tip(map));
+        commands.Add("attack", new Attack(map));
     }
 }
