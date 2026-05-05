@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DarkAgeLegacyServer
+﻿namespace DarkAgeLegacyServer
 {
     internal class Put : Command
     {
@@ -14,7 +8,13 @@ namespace DarkAgeLegacyServer
 
         public override string Execute(Player player, string value)
         {
-            throw new NotImplementedException();
+            Item? item = player.RemoveItem(value);
+            map.CurrentRoom.AddItem(item);
+            if (item != null) {
+                return "You have left " + item.Name + "." +
+                       AttackPlayer(player, map.CurrentRoom.AttackedEnemy);
+            }
+            return "You don't have this item.";
         }
 
         public override bool Exit()
