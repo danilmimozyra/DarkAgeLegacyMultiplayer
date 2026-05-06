@@ -17,6 +17,35 @@ namespace DarkAgeLegacyServer
         private List<NPC> npcs;
         private List<Item> items;
 
+        public int WestRoom
+        {
+            get => westRoom;
+            set => westRoom = value;
+        }
+
+        public int NorthRoom
+        {
+            get => northRoom;
+            set => northRoom = value;
+        }
+
+        public int EastRoom
+        {
+            get => eastRoom;
+            set => eastRoom = value;
+        }
+
+        public int SouthRoom
+        {
+            get => southRoom;
+            set => southRoom = value;
+        }
+
+        public string RoomName()
+        {
+            return name;
+        }
+
         public Enemy AttackedEnemy
         {
             get => attackedEnemy;
@@ -33,11 +62,6 @@ namespace DarkAgeLegacyServer
             npcs = new List<NPC>();
             items = new List<Item>();
         }
-
-        public int WestRoom { get => westRoom; }
-        public int NorthRoom { get => northRoom; }
-        public int EastRoom { get => eastRoom; }
-        public int SouthRoom { get => southRoom; }
         public string Name {
             get
             {
@@ -74,7 +98,7 @@ namespace DarkAgeLegacyServer
         {
             foreach (NPC n in npcs)
             {
-                if (n.Name.Equals(name))
+                if (n.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                 {
                     return n;
                 }
@@ -114,7 +138,7 @@ namespace DarkAgeLegacyServer
         {
             foreach (Item item in items)
             {
-                if (item != null && item.Name.Equals(name))
+                if (item != null && item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                 {
                     return item;
                 }

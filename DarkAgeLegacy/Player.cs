@@ -105,7 +105,7 @@
             {
                 if (inventory.Items[i] != null)
                 {
-                    if (inventory.Items[i].Name.Equals(name))
+                    if (inventory.Items[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
                     }
@@ -120,15 +120,15 @@
             if (weapon != null)
             {
                 d += weapon.Damage;
-                if (HasItem("Quiver") && weapon.Name.Equals("Crossbow"))
+                if (HasItem("Quiver") && weapon.Name.Equals("Crossbow", StringComparison.OrdinalIgnoreCase))
                 {
                     d += 5;
                 }
-                else if (HasItem("Grindstone") && weapon.Name.Equals("Broadsword"))
+                else if (HasItem("Grindstone") && weapon.Name.Equals("Broadsword", StringComparison.OrdinalIgnoreCase))
                 {
                     d += 5;
                 }
-                else if (HasItem("Talisman") && weapon.Name.Equals("Fire-Staff"))
+                else if (HasItem("Talisman") && weapon.Name.Equals("Fire-Staff", StringComparison.OrdinalIgnoreCase))
                 {
                     d += 5;
                 }
@@ -158,7 +158,7 @@
             {
                 if (inventory.Items[i] != null)
                 {
-                    if (inventory.Items[i].Name.Equals(name))
+                    if (inventory.Items[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                     {
                         item = inventory.Items[i];
                         return item;
@@ -176,7 +176,7 @@
             {
                 if (inventory.Items[i] != null)
                 {
-                    if (inventory.Items[i].Name.Equals(name))
+                    if (inventory.Items[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                     {
                         item = inventory.Items[i];
                         inventory.Items[i] = null;
@@ -194,7 +194,7 @@
             {
                 var item = inventory.Items[i];
 
-                if (item != null && item.Name.Equals(name))
+                if (item != null && item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                 {
                     item.ChangeAmount(amount);
 
