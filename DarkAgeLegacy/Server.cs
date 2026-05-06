@@ -91,6 +91,8 @@ public class Server
 
         if (!commands.ContainsKey(command)) return "Not a valid command";
 
+        Block b = (Block)commands["block"];
+        b.Unblock(player);
         if (splitMessage.Length > 1)
         {
             return commands[command].Execute(player, splitMessage[1]);
@@ -111,5 +113,6 @@ public class Server
         commands.Add("put", new Put(map));
         commands.Add("tip",  new Tip(map));
         commands.Add("attack", new Attack(map));
+        commands.Add("block", new Block(map));
     }
 }
