@@ -114,5 +114,6 @@ public class Server
         commands.Add("tip",  new Tip(map));
         commands.Add("attack", new Attack(map));
         commands.Add("block", new Block(map));
+        commands.Add("give",  new Give(map));
     }
 }
