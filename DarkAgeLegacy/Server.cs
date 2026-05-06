@@ -117,5 +117,6 @@ public class Server
         commands.Add("give",  new Give(map));
         commands.Add("puzzle", new Puzzle(map));
         commands.Add("craft", new Craft(map));
+        commands.Add("use", new Use(map));
     }
 }
