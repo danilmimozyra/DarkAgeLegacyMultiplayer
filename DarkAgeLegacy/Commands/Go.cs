@@ -1,21 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DarkAgeLegacyServer.Commands
+﻿namespace DarkAgeLegacyServer
 {
     internal class Go : Command
     {
-        public override string execute()
+        private bool dead;
+        
+        public Go(Map map) : base(map)
         {
-            throw new NotImplementedException();
+            dead = false;
         }
 
-        public override bool exit()
+        public override string Execute(Player player, string value)
         {
-            return false;
+            if (value == "")
+            {
+                return "You don't know in which direction to go.";
+            } 
+            int id;
+            string? line =  AttackPlayer(player, map.MapProp[player.CurrentRoom].AttackedEnemy);
+            if (player.Health <= 0) {
+                dead = true;
+                line += "\nYou died.";
+                return line;
+            }
+            switch (value)
+            {
+                case "west":
+                    id = map.MapProp[player.CurrentRoom].WestRoom;
+                    break;
+                case "north":
+                    id = map.MapProp[player.CurrentRoom].NorthRoom;
+                    break;
+                case "east":
+                    id = map.MapProp[player.CurrentRoom].EastRoom;
+                    break;
+                case "south":
+                    id = map.MapProp[player.CurrentRoom].SouthRoom;
+                    break;
+                default:
+                    return "You seem confused.";
+            }
+            if (id != 0) {
+                player.CurrentRoom = id;
+                return line + map.MapProp[player.CurrentRoom].RoomDescription();
+            }
+            return "This room doesn't have an entrance there!";
+            
+        }
+
+        public override bool Exit()
+        {
+            return dead;
         }
     }
 }
