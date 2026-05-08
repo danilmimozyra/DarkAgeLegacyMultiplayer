@@ -1,0 +1,3 @@
+Prison Cell|wounded-knight|||||Looking for puzzle, Blair, aren't you? There's no puzzles here, but if you can give me a Healing-potion, I might be able to help you.\nYou can craft it using one piece Flesh and one Moss.\n- says the Wounded-Knight.|
+Library||library|west|5||A shelf on the west is starting to collapse. You can see some strange corridor.|I am a house with countless doors,\nEach one leads to distant shores.\nSilent guides in rows I keep,\nWhere stories wake and knowledge sleeps.\nWhat am I?
+Sanctuary of Light||knowledge|||0,Amulet-of-Light,0,a|A bright beam of light gave you 'Amulet-of-Light'.|I am not seen, yet clear to all,\nA single spark, and doubts will fall.\nI dwell in minds, yet light the skies,\nDestroying darkness with my rise.\nWhat am I?

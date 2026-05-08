@@ -1,0 +1,6 @@
+heal_amount=50
+throne_key_room=Catacombs
+throne_room_id=10
+teleport_room_id=1
+locked_throne_hint_room_id=8
+locked_throne_hint=You have to open the Throne Room in the catacombs using the 'Throne-Room-Key'.

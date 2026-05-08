@@ -16,9 +16,7 @@
             if (npc != null) {
                 if (npc is Enemy or Boss) {
                     map.MapProp[player.CurrentRoom].AttackedEnemy = (Enemy) npc;
-                    return "=================================================================================================" +
-                           "=====================================================================\n" +
-                           ((Enemy) npc).Attack(player);
+                    return "\n" + ((Enemy) npc).Attack(player);
                 }
             }
             return "";

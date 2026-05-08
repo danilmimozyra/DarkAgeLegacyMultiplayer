@@ -10,8 +10,8 @@
         {
             string line = map.MapProp[player.CurrentRoom].RoomInfo();
             line += "\nSome rooms may contain puzzles. To check if the room has one use the command: puzzle.";
-            if (map.MapProp[8].SouthRoom == 0) {
-                line += "\nYou have to open the Throne Room in the catacombs using the 'Throne-Room-Key'.";
+            if (map.MapProp[GameSettings.Instance.LockedThroneHintRoomId].SouthRoom == 0) {
+                line += "\n" + GameSettings.Instance.LockedThroneHint;
             }
             return line;
         }

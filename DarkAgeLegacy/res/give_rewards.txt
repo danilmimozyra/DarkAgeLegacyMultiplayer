@@ -1,0 +1,3 @@
+wounded-knight,healing-potion,0,Quiver,0,n,Thank you, Blair, here's a 'Quiver' for you.
+wounded-knight,healing-potion,0,Grindstone,0,n,Thank you, Blair, here's a 'Grindstone' for you.
+wounded-knight,healing-potion,0,Talisman,0,n,Thank you, Blair, here's a 'Talisman' for you.

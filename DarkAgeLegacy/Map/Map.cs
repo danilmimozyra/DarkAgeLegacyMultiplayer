@@ -19,6 +19,7 @@ namespace DarkAgeLegacyServer
             LoadMap();
             LoadNPCs();
             LoadDrops();
+            LoadWorldItems();
         }
 
         private void LoadMap()
@@ -98,9 +99,6 @@ namespace DarkAgeLegacyServer
                     );
                 }
             } 
-            map[rd.Next(map.Count) + 1].AddItem(
-                    new OffHand("Torch", 0, 20, 0)
-            );
         }
 
         private Item? AddDropToNPC(string[] dropsInfo)
@@ -113,6 +111,48 @@ namespace DarkAgeLegacyServer
                                    int.Parse(dropsInfo[6]), int.Parse(dropsInfo[7])),
 
                 "2" => new Weapon(dropsInfo[4], int.Parse(dropsInfo[5])),
+
+                _ => null
+            };
+        }
+
+        private void LoadWorldItems()
+        {
+            string filePath = "res/world_items.txt";
+
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] itemInfo = line.Split(",");
+                    int roomId = int.Parse(itemInfo[0]);
+
+                    if (roomId == 0)
+                    {
+                        roomId = rd.Next(map.Count) + 1;
+                    }
+
+                    map[roomId].AddItem(CreateItem(itemInfo, 1));
+                }
+            }
+        }
+
+        public Item? CreateItem(string[] itemInfo, int typeIndex)
+        {
+            return itemInfo[typeIndex] switch
+            {
+                "0" => new Item(itemInfo[typeIndex + 1], int.Parse(itemInfo[typeIndex + 2]), itemInfo[typeIndex + 3]),
+
+                "1" => new OffHand(itemInfo[typeIndex + 1], int.Parse(itemInfo[typeIndex + 2]),
+                                   int.Parse(itemInfo[typeIndex + 3]), int.Parse(itemInfo[typeIndex + 4])),
+
+                "2" => new Weapon(itemInfo[typeIndex + 1], int.Parse(itemInfo[typeIndex + 2])),
 
                 _ => null
             };

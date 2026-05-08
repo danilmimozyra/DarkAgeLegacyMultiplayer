@@ -1,88 +1,131 @@
-﻿namespace DarkAgeLegacyServer
+namespace DarkAgeLegacyServer
 {
     internal class Puzzle : Command
     {
-        private bool sof;
-        private bool lib;
+        private readonly Dictionary<string, PuzzleData> puzzles;
+        private readonly HashSet<string> solvedRooms;
 
         public Puzzle(Map map) : base(map)
         {
-            sof = true;
-            lib = true;
+            puzzles = LoadPuzzles();
+            solvedRooms = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
 
         public override string Execute(Player player, string value)
         {
-            string name = map.MapProp[player.CurrentRoom].RoomName();
+            string roomName = map.MapProp[player.CurrentRoom].RoomName();
 
-            switch (name)
+            if (!puzzles.TryGetValue(roomName, out PuzzleData? puzzle))
             {
-                case "Prison Cell":
-                    if (map.MapProp[player.CurrentRoom].FindNPC("wounded-knight") != null)
-                    {
-                        return
-                            "Looking for puzzle, Blair, aren't you? There's no puzzles here, but if you can give me a Healing-potion, I might be able to help you.\n" +
-                            "You can craft it using one piece Flesh and one Moss.\n" +
-                            "- says the Wounded-Knight.\n";
-                    }
-
-                    break;
-
-                case "Library":
-                    if (lib)
-                    {
-                        Console.Write("I am a house with countless doors,\n" +
-                                      "Each one leads to distant shores.\n" +
-                                      "Silent guides in rows I keep,\n" +
-                                      "Where stories wake and knowledge sleeps.\n" +
-                                      "What am I?\n" +
-                                      ">> ");
-
-                        string answer = Console.ReadLine();
-                        if (answer != null && answer.Equals("library", StringComparison.OrdinalIgnoreCase))
-                        {
-                            map.MapProp[player.CurrentRoom].WestRoom = 5;
-                            lib = false;
-                            return "A shelf on the west is starting to collapse. You can see some strange corridor.";
-                        }
-                        
-                        return "- No";
-                        
-                    }
-
-                    break;
-
-                case "Sanctuary of Light":
-                    if (sof)
-                    {
-                        Console.Write(" I am not seen, yet clear to all,\n" +
-                                      "A single spark, and doubts will fall.\n" +
-                                      "I dwell in minds, yet light the skies,\n" +
-                                      "Destroying darkness with my rise.\n" +
-                                      "What am I?\n" +
-                                      ">> ");
-
-                        string answer = Console.ReadLine();
-                        if (answer != null && answer.Equals("knowledge", StringComparison.OrdinalIgnoreCase))
-                        {
-                            Item amulet = new Item("Amulet-of-Light", 0, "a");
-                            map.MapProp[player.CurrentRoom].AddItem(amulet);
-                            sof = false;
-                            return "A bright beam of light gave you 'Amulet-of-Light'.";
-                        }
-                        return "- No";
-                        
-                    }
-
-                    break;
+                return "Seems like there isn't any puzzles in this room.";
             }
 
-            return "Seems like there isn't any puzzles in this room.";
+            if (!string.IsNullOrWhiteSpace(puzzle.RequiredNpc)
+                && map.MapProp[player.CurrentRoom].FindNPC(puzzle.RequiredNpc) != null)
+            {
+                return puzzle.SuccessMessage;
+            }
+
+            if (solvedRooms.Contains(roomName))
+            {
+                return "This puzzle has already been solved.";
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return puzzle.Riddle + "\nUse: puzzle [answer]";
+            }
+
+            if (!value.Equals(puzzle.Answer, StringComparison.OrdinalIgnoreCase))
+            {
+                return "- No";
+            }
+
+            ApplyReward(player, puzzle);
+            solvedRooms.Add(roomName);
+            return puzzle.SuccessMessage;
         }
 
         public override bool Exit()
         {
             return false;
+        }
+
+        private Dictionary<string, PuzzleData> LoadPuzzles()
+        {
+            Dictionary<string, PuzzleData> loadedPuzzles = new Dictionary<string, PuzzleData>(StringComparer.OrdinalIgnoreCase);
+            string filePath = "res/puzzles.txt";
+
+            if (!File.Exists(filePath))
+            {
+                return loadedPuzzles;
+            }
+
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                string[] puzzleInfo = line.Split('|');
+
+                if (puzzleInfo.Length >= 8)
+                {
+                    PuzzleData puzzle = new PuzzleData(puzzleInfo);
+                    loadedPuzzles[puzzle.RoomName] = puzzle;
+                }
+            }
+
+            return loadedPuzzles;
+        }
+
+        private void ApplyReward(Player player, PuzzleData puzzle)
+        {
+            if (!string.IsNullOrWhiteSpace(puzzle.OpenDirection) && puzzle.OpenRoomId != 0)
+            {
+                switch (puzzle.OpenDirection.ToLower())
+                {
+                    case "west":
+                        map.MapProp[player.CurrentRoom].WestRoom = puzzle.OpenRoomId;
+                        break;
+                    case "north":
+                        map.MapProp[player.CurrentRoom].NorthRoom = puzzle.OpenRoomId;
+                        break;
+                    case "east":
+                        map.MapProp[player.CurrentRoom].EastRoom = puzzle.OpenRoomId;
+                        break;
+                    case "south":
+                        map.MapProp[player.CurrentRoom].SouthRoom = puzzle.OpenRoomId;
+                        break;
+                }
+            }
+
+            if (puzzle.RewardInfo.Length > 0)
+            {
+                map.MapProp[player.CurrentRoom].AddItem(map.CreateItem(puzzle.RewardInfo, 0));
+            }
+        }
+
+        private class PuzzleData
+        {
+            public string RoomName { get; }
+            public string RequiredNpc { get; }
+            public string Answer { get; }
+            public string OpenDirection { get; }
+            public int OpenRoomId { get; }
+            public string[] RewardInfo { get; }
+            public string SuccessMessage { get; }
+            public string Riddle { get; }
+
+            public PuzzleData(string[] puzzleInfo)
+            {
+                RoomName = puzzleInfo[0];
+                RequiredNpc = puzzleInfo[1];
+                Answer = puzzleInfo[2];
+                OpenDirection = puzzleInfo[3];
+                OpenRoomId = int.TryParse(puzzleInfo[4], out int roomId) ? roomId : 0;
+                RewardInfo = string.IsNullOrWhiteSpace(puzzleInfo[5])
+                    ? Array.Empty<string>()
+                    : puzzleInfo[5].Split(',');
+                SuccessMessage = puzzleInfo[6].Replace("\\n", "\n");
+                Riddle = puzzleInfo[7].Replace("\\n", "\n");
+            }
         }
     }
 }

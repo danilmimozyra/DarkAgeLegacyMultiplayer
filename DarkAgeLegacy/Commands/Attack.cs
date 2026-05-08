@@ -79,11 +79,8 @@ namespace DarkAgeLegacyServer
             }
             if (string.Equals(n.Name, "Anthrax"))
             {
-                sb.Append("""
-
-                          Some strange portal has opened in the room. Seems like it leads to the surface.
-                          "My work is done here, it is time to go home" - sayd Blair and jumped in the portal
-                          """);
+                sb.Append("\nSome strange portal has opened in the room. Seems like it leads to the surface.");
+                sb.Append("\n\"My work is done here, it is time to go home\" - sayd Blair and jumped in the portal");
                 dead = true;
             }
             return sb.ToString();

@@ -24,7 +24,7 @@
                         }
                         else
                         {
-                            player.Health += 50;
+                            player.Health += GameSettings.Instance.HealAmount;
                             if (player.Health > player.MaxHealth)
                             {
                                 player.Health = player.MaxHealth;
@@ -43,9 +43,9 @@
                         break;
 
                     case Ability.k:
-                        if (map.MapProp[player.CurrentRoom].RoomName() == "Catacombs")
+                        if (map.MapProp[player.CurrentRoom].RoomName() == GameSettings.Instance.ThroneKeyRoomName)
                         {
-                            map.MapProp[player.CurrentRoom].SouthRoom = 10;
+                            map.MapProp[player.CurrentRoom].SouthRoom = GameSettings.Instance.ThroneRoomId;
                             player.RemoveItem(value);
                             line = "The Throne Room has been opened.";
                         }
@@ -57,7 +57,7 @@
                         break;
 
                     case Ability.s:
-                        map.MapProp[player.CurrentRoom] = map.MapProp[1];
+                        player.CurrentRoom = GameSettings.Instance.TeleportRoomId;
                         line = $"You have teleported to {map.MapProp[player.CurrentRoom].RoomName()}.";
                         break;
 

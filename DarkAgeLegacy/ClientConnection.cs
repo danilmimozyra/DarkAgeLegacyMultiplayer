@@ -3,9 +3,12 @@ using System.Text;
 
 public class ClientConnection
 {
+    private const string EndMessage = "<END_MESSAGE>";
+
     private TcpClient client;
     private StreamReader reader;
     private StreamWriter writer;
+    private object writerLock = new object();
 
     public string Id { get; }
 
@@ -31,7 +34,11 @@ public class ClientConnection
     //pise do konzole klienta
     public void Send(string message)
     {
-        writer.WriteLine(message);
+        lock (writerLock)
+        {
+            writer.WriteLine(message.TrimEnd());
+            writer.WriteLine(EndMessage);
+        }
     }
 
     public void Close()

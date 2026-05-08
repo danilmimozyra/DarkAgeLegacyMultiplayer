@@ -80,7 +80,7 @@ namespace DarkAgeLegacyServer
             switch (ability)
             {
                 case Ability.h:
-                    return ", it can heal your health by 50";
+                    return ", it can heal your health by " + GameSettings.Instance.HealAmount;
                 case Ability.k:
                     return ", it can open the Throne room in the Catacombs";
                 case Ability.a:
